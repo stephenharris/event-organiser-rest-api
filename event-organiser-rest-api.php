@@ -49,7 +49,7 @@ add_filter( 'eventorganiser_event_properties', function( $args ) {
 	return $args;
 } );
 
-add_filter( 'eventorganiser_register_taxonomy_event-categories', function( $args ) {
+add_filter( 'eventorganiser_register_taxonomy_event-category', function( $args ) {
 	$args = array_merge( array(
 		'show_in_rest'          => true,
 		'rest_base'             => 'event-categories',
