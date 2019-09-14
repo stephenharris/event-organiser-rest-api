@@ -12,6 +12,24 @@ class WP_REST_Events_Controller extends WP_REST_Posts_Controller {
 		add_filter( 'rest_pre_insert_event', array( $this, '_add_event_fields_for_database' ), 10, 2 );
 		//Populate occurrence / schedule data for response
 		add_filter( 'rest_prepare_event', array( $this, '_add_event_fields_for_response' ), 10, 3 );
+
+		add_filter( 'rest_event_query', array( $this, '_set_custom_request_fields_to_event_query' ), 10, 2 );
+	}
+
+	public function _set_custom_request_fields_to_event_query( $args, $request ) {
+		if( isset( $request['event_start_before'] ) ) {
+			$args['event_start_before'] = $request['event_start_before'];
+		}
+		if( isset( $request['event_start_after'] ) ) {
+			$args['event_start_after'] = $request['event_start_after'];
+		}
+		if( isset( $request['event_end_before'] ) ) {
+			$args['event_end_before'] = $request['event_end_before'];
+		}
+		if( isset( $request['event_end_after'] ) ) {
+			$args['event_end_after'] = $request['event_end_after'];
+		}
+		return $args;
 	}
 
 	public function get_collection_params() {
